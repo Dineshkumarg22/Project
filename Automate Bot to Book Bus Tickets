@@ -1,0 +1,135 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.select import Select
+from time import sleep as s
+o=Service("E:\drivers\chromedriver.exe")
+d=webdriver.Chrome(service=o)
+d.get('https://www.tnstc.in/home.html')
+d.maximize_window()
+d.find_element(By.CSS_SELECTOR,'input[id=matchStartPlace]').send_keys('CHENNAI')
+s(2)
+
+fr=d.find_elements(By.XPATH,'//li[@class="ui-menu-item"]/a')
+for i in fr:
+    if i.text=="CHENNAI-PT Dr. M.G.R. BS":
+        i.click()
+        break
+s(2)
+
+d.find_element(By.CSS_SELECTOR,'input[id=matchEndPlace]').send_keys('MADURAI')
+s(2)
+
+to=d.find_elements(By.XPATH,'//li[@class="ui-menu-item"]/a')
+for j in to:
+    if j.text=="MADURAI":
+        j.click()
+        break
+s(2)
+
+d.find_element(By.XPATH,'//*[@id="txtdeptDateOtrip"]').click()
+s(2)
+
+dates=d.find_elements(By.XPATH,'//*[@id="ui-datepicker-div"]/table/tbody/tr/td')
+for date in dates:
+    if date.text=="15":
+        date.click()
+        break
+s(2)
+
+a=Select(d.find_element(By.XPATH,'//*[@id="selectOnwardTimeSlab"]'))
+a.select_by_index(2)
+s(2)
+
+ct=d.find_element(By.CSS_SELECTOR,'#txtAdultMales')
+s(1)
+ct.clear()
+s(2)
+ct.send_keys('1'+Keys.RETURN)
+
+b=Select(d.find_element(By.XPATH,'//*[@id="selectClass"]'))
+b.select_by_visible_text("ULTRA DELUXE")
+s(2)
+
+d.find_element(By.XPATH,'//div[@class="btnTxt"]').click()
+s(3)
+
+trow=d.find_elements(By.XPATH,'//*[@class="S1"]')
+
+for r1 in trow:
+    print(r1.text)
+
+tcol=d.find_elements(By.XPATH,'//*[@class="S1"]/td[5]')
+
+for c1 in tcol:
+    print(c1.text)
+
+col12=d.find_elements(By.XPATH,'//*[@class="S1"]/td[12]')
+for c12 in col12:
+    print(c12.text)
+
+for r in range(2,7,2):
+    tim=d.find_element(By.XPATH,"//*[@id='table-1']/tbody/tr[1]/td[2]/table/tbody[2]/tr["+str(r)+"]/td[5]").text
+    print(tim)
+    if tim==" 17:20":
+        d.find_element(By.XPATH,'//*[@id="table-1"]/tbody/tr[1]/td[2]/table/tbody[2]/tr['+str(r)+']/td[12]').click()
+        break
+
+seat=d.find_elements(By.XPATH,'//*[@name="chkSelectedList"]')
+for se in seat:
+    print(se.get_attribute('value'))
+    if se.get_attribute('value')=="22-A#22":
+        se.click()
+        break
+s(2)
+
+
+d.find_element(By.CSS_SELECTOR,'input[name="txtName"]').send_keys('Dinesh Kumar G'+Keys.RETURN)
+s(2)
+
+d.find_element(By.CSS_SELECTOR,'input[name="txtAge"]').send_keys('23'+Keys.RETURN)
+s(2)
+
+card=Select(d.find_element(By.XPATH,'//*[@id="empTable"]/tbody/tr[5]/th[2]/div/select'))
+card.select_by_visible_text("Student ID Card")
+s(2)
+
+d.find_element(By.XPATH,'//*[@id="empTable"]/tbody/tr[5]/td[2]/div/input').send_keys('TECH22'+Keys.RETURN)
+s(2)
+
+
+d.find_element(By.XPATH,'//*[@name="txtPhoneNo"]').send_keys('9988776655'+Keys.RETURN)
+s(2)
+
+d.find_element(By.XPATH,'//*[@name="txtEmailID"]').send_keys('busbook@gmail.com'+Keys.RETURN)
+s(2)
+
+d.find_element(By.XPATH,'//*[a="Submit"]').click()
+s(3)
+
+al=d.switch_to.alert
+al.accept()
+s(2)
+
+s(5)
+d.find_element(By.XPATH,'//*[@id="searchBtn1"]/table/tbody/tr/td[3]/div/a').click()
+s(5)
+
+d.find_element(By.XPATH,'//*[@name="cnumber"]').send_keys('0123456789101112'+Keys.RETURN)
+s(2)
+
+mo=Select(d.find_element(By.XPATH,'//*[@name="expmon"]'))
+mo.select_by_index(5)
+s(2)
+
+yr=Select(d.find_element(By.XPATH,'//*[@name="expyr"]'))
+yr.select_by_visible_text("2023")
+s(2)
+
+d.find_element(By.XPATH,'//*[@id="cvv2"]').send_keys('123'+Keys.RETURN)
+s(2)
+
+d.find_element(By.XPATH,'//*[@id="cname2"]').send_keys('DINESH KUMAR G')
+s(5)
