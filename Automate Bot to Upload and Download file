@@ -1,0 +1,17 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from time import sleep
+o=Service("E:\drivers\chromedriver.exe")
+d=webdriver.Chrome(service=o)
+d.get('https://web.whatsapp.com/')
+sleep(30)
+d.find_element(By.XPATH,'/html/body/div[1]/div/div/div[4]/div/div[1]/div/div/div[2]/div/div[1]').send_keys('Prakash sel')
+d.find_element(By.CLASS_NAME,'_8nE1Y').click()
+#File Upload
+d.find_element(By.XPATH,'/html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[1]/div[2]/div/div').click()
+d.find_element(By.XPATH,'/html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[1]/div[2]/div/span/div/div/ul/li[4]/button/input').send_keys('C:\\Users\\User\\Desktop\\New folder (2)\\Mini project.txt')
+d.find_element(By.XPATH,'//div[@aria-label="Send"]').click()
+#File Download
+d.find_element(By.XPATH,'/html/body/div[1]/div/div/div[5]/div/div[2]/div/div[2]/div[3]/div[21]/div/div/div/div[1]/div[1]/button/div/div/div[3]/div/span').click()
